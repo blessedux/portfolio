@@ -34,19 +34,21 @@ const Navbar: React.FC = () => {
           
           {/* Center - HMU button */}
           <div className="w-1/3 flex justify-center">
-            <button 
+            <a 
+              href="https://t.me/blessedux" 
+              target="_blank" 
+              rel="noopener noreferrer"
               className="px-6 py-2 text-white hover:text-white/80 transition-colors duration-300 font-handwriting text-2xl tracking-wider"
-              onClick={() => window.location.href = 'mailto:your@email.com'}
               style={{ fontFamily: "'Caveat', cursive" }}
             >
               hmu
-            </button>
+            </a>
           </div>
           
           {/* Right side - Social icons */}
           <div className="w-1/3 flex justify-end space-x-4">
             <a 
-              href="https://github.com/yourusername" 
+              href="https://github.com/blessedux" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-white hover:text-white/80 transition-colors duration-300"
@@ -54,7 +56,7 @@ const Navbar: React.FC = () => {
               <FaGithub size={24} />
             </a>
             <a 
-              href="https://twitter.com/yourusername" 
+              href="https://x.com/blessed_ux" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-white hover:text-white/80 transition-colors duration-300"
@@ -62,7 +64,7 @@ const Navbar: React.FC = () => {
               <FaXTwitter size={22} />
             </a>
             <a 
-              href="https://linkedin.com/in/yourusername" 
+              href="https://linkedin.com/in/joaquin-farfan-torres" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-white hover:text-white/80 transition-colors duration-300"

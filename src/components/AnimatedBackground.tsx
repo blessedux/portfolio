@@ -9,8 +9,7 @@ const AnimatedBackground: React.FC = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const maxScroll = documentHeight - windowHeight;
+      const maxScroll = windowHeight;
       const progress = Math.min(scrollPosition / maxScroll, 1);
       setScrollProgress(progress);
     };
@@ -25,8 +24,7 @@ const AnimatedBackground: React.FC = () => {
       style={{ 
         zIndex: 1,
         filter: `blur(${scrollProgress * 20}px)`,
-        transition: 'filter 0.1s ease-out',
-        pointerEvents: 'none'
+        transition: 'filter 0.2s ease-out',
       }}
     >
       <iframe
@@ -34,22 +32,18 @@ const AnimatedBackground: React.FC = () => {
         frameBorder="0"
         width="100%"
         height="100%"
-        className="fixed inset-0"
         style={{
-          zIndex: 1,
-          pointerEvents: 'auto',
-          touchAction: 'none',
-          userSelect: 'none',
-          WebkitUserSelect: 'none',
-          msUserSelect: 'none',
+          width: '100%',
+          height: '100vh',
+          border: 'none',
           position: 'fixed',
           top: 0,
           left: 0,
-          right: 0,
-          bottom: 0,
-          willChange: 'transform'
+          pointerEvents: 'auto',
+          zIndex: 1,
+          background: 'transparent'
         }}
-        allow="autoplay; fullscreen"
+        allow="autoplay; fullscreen; pointer-lock"
       />
     </div>
   );
