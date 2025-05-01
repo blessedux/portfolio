@@ -1,6 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useSpring, animated } from '@react-spring/web';
+import { useInView } from 'react-intersection-observer';
 import AnimatedBackground from './AnimatedBackground';
 import Navbar from './Navbar';
 import NoiseOverlay from './NoiseOverlay';
@@ -9,6 +11,44 @@ import Gallery from './Gallery';
 import AnimatedSkillBar from './AnimatedSkillBar';
 
 const LandingPage: React.FC = () => {
+  const [hoveredText, setHoveredText] = useState<number | null>(null);
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: false,
+  });
+
+  const bioCardSpring = useSpring({
+    from: { opacity: 0, transform: 'translateY(40px)' },
+    to: { 
+      opacity: inView ? 1 : 0,
+      transform: inView ? 'translateY(0px)' : 'translateY(40px)'
+    },
+    config: {
+      mass: 1,
+      tension: 280,
+      friction: 60
+    }
+  });
+
+  const bioTexts = [
+    {
+      text: "Hey! I'm Joaquín — a UX designer and frontend developer obsessed with clarity, flow, and making complex things feel simple.",
+      keywords: ["UX designer", "frontend developer", "clarity", "flow", "simple"]
+    },
+    {
+      text: "I've built award-winning Web3 products at hackathons around the world and contributed to open-source design through the Bitcoin Design Foundation.",
+      keywords: ["Web3", "hackathons", "open-source", "Bitcoin Design Foundation"]
+    },
+    {
+      text: "I care (a lot) about clean interfaces, thoughtful interactions, and telling powerful stories through design.",
+      keywords: ["clean interfaces", "thoughtful interactions", "powerful stories", "design"]
+    },
+    {
+      text: "I'm deeply committed to decentralization and building the internet of the future—open, permissionless, and made for people, not platforms.",
+      keywords: ["decentralization", "internet of the future", "permissionless", "people", "platforms"]
+    }
+  ];
+
   const skills = [
     { skill: "React / Next.js", level: 95 },
     { skill: "TypeScript", level: 90 },
@@ -30,36 +70,33 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Bio Section */}
-      <section className="relative w-full min-h-screen">
+      <section className="relative w-full min-h-screen" ref={ref}>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
         <div className="container mx-auto px-4 py-20 relative h-full">
-          <div 
-            className="backdrop-blur-md bg-white/10 dark:bg-black/10 rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-xl"
-            style={{ 
-              zIndex: 2,
-              position: 'relative'
-            }}
+          <animated.div 
+            style={bioCardSpring}
+            className="backdrop-blur-md bg-white/10 dark:bg-black/10 rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-xl relative z-10"
           >
-            <div style={{ position: 'relative', zIndex: 2 }}>
+            <div className="relative z-10">
               <h2 className="text-6xl font-display-bold mb-8 text-white tracking-tight">Bio</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <TextFadeIn 
-                    text="Hey! I'm Joaquín — a UX designer and frontend developer obsessed with clarity, flow, and making complex things feel simple."
-                    className="text-lg text-white/90"
-                  />
-                  <TextFadeIn 
-                    text="I've built award-winning Web3 products at hackathons around the world and contributed to open-source design through the Bitcoin Design Foundation."
-                    className="text-lg text-white/90"
-                  />
-                  <TextFadeIn 
-                    text="I care (a lot) about clean interfaces, thoughtful interactions, and telling powerful stories through design."
-                    className="text-lg text-white/90"
-                  />
-                  <TextFadeIn 
-                    text="I'm deeply committed to decentralization and building the internet of the future—open, permissionless, and made for people, not platforms."
-                    className="text-lg text-white/90"
-                  />
+                  {bioTexts.map((item, index) => (
+                    <div
+                      key={index}
+                      onMouseEnter={() => setHoveredText(index)}
+                      onMouseLeave={() => setHoveredText(null)}
+                      className="cursor-default"
+                    >
+                      <TextFadeIn 
+                        text={item.text}
+                        className="text-lg text-white/90"
+                        animate={inView && (hoveredText === null || hoveredText === index)}
+                        keywords={item.keywords}
+                        isHovered={hoveredText === index}
+                      />
+                    </div>
+                  ))}
                 </div>
                 <div className="space-y-8">
                   <h3 className="text-4xl font-display-bold text-white tracking-tight">Skills</h3>
@@ -75,7 +112,7 @@ const LandingPage: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </animated.div>
         </div>
       </section>
 
