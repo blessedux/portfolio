@@ -23,9 +23,10 @@ const AnimatedBackground: React.FC = () => {
     <div 
       className="fixed inset-0 w-full h-full"
       style={{ 
-        zIndex: 0,
+        zIndex: 1,
         filter: `blur(${scrollProgress * 20}px)`,
-        transition: 'filter 0.1s ease-out'
+        transition: 'filter 0.1s ease-out',
+        pointerEvents: 'none'
       }}
     >
       <iframe
@@ -35,12 +36,18 @@ const AnimatedBackground: React.FC = () => {
         height="100%"
         className="fixed inset-0"
         style={{
-          zIndex: 0,
+          zIndex: 1,
           pointerEvents: 'auto',
           touchAction: 'none',
           userSelect: 'none',
           WebkitUserSelect: 'none',
-          msUserSelect: 'none'
+          msUserSelect: 'none',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          willChange: 'transform'
         }}
         allow="autoplay; fullscreen"
       />
