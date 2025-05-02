@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 interface ImageGridProps {
@@ -24,15 +25,16 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
           <div className="tile">
             <a 
               href={image.href}
-              className="block group"
+              className="block group relative aspect-square"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative transition-all duration-300 ease-in-out group-hover:[transform:translate(-1rem,-1rem)]">
-                <img
+              <div className="relative w-full h-full transition-all duration-300 ease-in-out group-hover:[transform:translate(-1rem,-1rem)]">
+                <Image
                   src={image.src}
                   alt={image.alt}
-                  className="block w-full h-auto transition-all duration-125 ease-in"
+                  fill
+                  className="transition-all duration-125 ease-in object-cover"
                   style={{
                     boxShadow: `group-hover:5px 5px ${image.color}66,
                                group-hover:10px 10px ${image.color}4D,

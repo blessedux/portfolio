@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useSpring, animated } from '@react-spring/web';
 import { useInView } from 'react-intersection-observer';
 import AnimatedBackground from './AnimatedBackground';
@@ -134,28 +135,31 @@ const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Project Card 1 */}
             <div className="relative backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300 group">
-              <img 
+              <Image 
                 src="/blessedlogos/sozucash_card.png" 
                 alt="Sozu Cash Card" 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
               />
             </div>
 
             {/* Project Card 2 */}
             <div className="relative backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300 group">
-              <img 
+              <Image 
                 src="/blessedlogos/sozucash_card.png" 
                 alt="Sozu Cash Card" 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
               />
             </div>
 
             {/* Project Card 3 */}
             <div className="relative backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300 group">
-              <img 
+              <Image 
                 src="/blessedlogos/sozucash_card.png" 
                 alt="Sozu Cash Card" 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
               />
             </div>
           </div>
