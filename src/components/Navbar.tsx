@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
+import PaperPlane from './PaperPlane';
 
 const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,16 +33,15 @@ const Navbar: React.FC = () => {
           {/* Left side - empty for now */}
           <div className="w-1/3" />
           
-          {/* Center - HMU button */}
+          {/* Center - Paper Plane animation */}
           <div className="w-1/3 flex justify-center">
             <a 
               href="https://t.me/blessedux" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-6 py-2 text-white hover:text-white/80 transition-colors duration-300 font-handwriting text-2xl tracking-wider"
-              style={{ fontFamily: "'Caveat', cursive" }}
+              className="flex items-center justify-center"
             >
-              hmu
+              <PaperPlane isVisible={isVisible} />
             </a>
           </div>
           

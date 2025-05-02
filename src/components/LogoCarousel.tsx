@@ -12,7 +12,7 @@ import { logos } from "./logos"
 interface Logo {
   name: string
   id: number
-  img: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  img: React.ComponentType<{ width?: number; height?: number; className?: string }>
 }
 
 interface LogoColumnProps {
@@ -58,8 +58,8 @@ const distributeLogos = (allLogos: Logo[], columnCount: number): Logo[][] => {
 }
 
 const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime, currentLogos, setCurrentLogos }) => {
-  const cycleInterval = 4000 // Increased from 1000 to 4000 for slower transitions
-  const columnDelay = index * 200 // Increased from 50 to 200 for slower sequence
+  const cycleInterval = 2000 // Halved from 4000 to 2000 for faster transitions
+  const columnDelay = index * 100 // Halved from 200 to 100 for faster sequence
   const adjustedTime = (currentTime + columnDelay) % (cycleInterval * logos.length)
   const currentIndex = Math.floor(adjustedTime / cycleInterval)
   
@@ -80,8 +80,8 @@ const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime, cur
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        delay: index * 0.1, // Increased from 0.025 to 0.1
-        duration: 0.5, // Increased from 0.125 to 0.5
+        delay: index * 0.05, // Halved from 0.1 to 0.05
+        duration: 0.25, // Halved from 0.5 to 0.25
         ease: "easeOut",
       }}
     >
@@ -100,7 +100,7 @@ const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime, cur
               damping: 20,
               mass: 1,
               bounce: 0.2,
-              duration: 0.5, // Increased from 0.125 to 0.5
+              duration: 0.25, // Halved from 0.5 to 0.25
             },
           }}
           exit={{
@@ -110,7 +110,7 @@ const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime, cur
             transition: {
               type: "tween",
               ease: "easeIn",
-              duration: 0.3, // Increased from 0.075 to 0.3
+              duration: 0.15, // Halved from 0.3 to 0.15
             },
           }}
         >
@@ -137,11 +137,11 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({ columnCount = 3 }) =
   const [currentLogos, setCurrentLogos] = useState<Logo[]>([])
 
   const updateTime = useCallback(() => {
-    setCurrentTime((prevTime) => prevTime + 200) // Increased from 50 to 200 for slower animations
+    setCurrentTime((prevTime) => prevTime + 100) // Halved from 200 to 100 for faster animations
   }, [])
 
   useEffect(() => {
-    const intervalId = setInterval(updateTime, 200) // Increased from 50 to 200
+    const intervalId = setInterval(updateTime, 100) // Halved from 200 to 100
     return () => clearInterval(intervalId)
   }, [updateTime])
 
@@ -151,7 +151,7 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({ columnCount = 3 }) =
     setCurrentLogos(new Array(columnCount).fill(logos[0]))
   }, [columnCount])
 
-  // Ensure no duplicate logos are shown simultaneously
+  // Enhanced check to prevent duplicate logos
   useEffect(() => {
     if (currentLogos.length < 2) return
 
@@ -162,7 +162,18 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({ columnCount = 3 }) =
     if (hasDuplicates) {
       const availableLogos = logos.filter(logo => !currentLogos.some(l => l && l.id === logo.id))
       if (availableLogos.length > 0) {
-        const newLogoSets = logoSets.map(column => shuffleArray([...column]))
+        const newLogoSets = logoSets.map((column, colIndex) => {
+          // Get current logos from other columns
+          const otherColumnLogos = currentLogos.filter((_, idx) => idx !== colIndex)
+          // Filter out logos that are currently shown in other columns
+          const availableForColumn = column.filter(logo => 
+            !otherColumnLogos.some(l => l && l.id === logo.id)
+          )
+          // If we have enough unique logos, use them, otherwise shuffle the original column
+          return availableForColumn.length >= column.length ? 
+            availableForColumn : 
+            shuffleArray([...column])
+        })
         setLogoSets(newLogoSets)
       }
     }
