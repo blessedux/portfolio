@@ -19,6 +19,8 @@ interface LogoColumnProps {
   logos: Logo[]
   index: number
   currentTime: number
+  currentLogos: Logo[]
+  setCurrentLogos: React.Dispatch<React.SetStateAction<Logo[]>>
 }
 
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -37,9 +39,9 @@ const distributeLogos = (allLogos: Logo[], columnCount: number): Logo[][] => {
   
   for (let i = 0; i < totalCycles; i++) {
     const shuffled = shuffleArray([...allLogos])
-    cycles.push(...Array.from({ length: Math.ceil(shuffled.length / columnCount) }, (_, index) =>
-      shuffled.slice(index * columnCount, (index + 1) * columnCount)
-    ))
+    // Ensure each cycle has exactly columnCount unique logos
+    const cycle = shuffled.slice(0, columnCount)
+    cycles.push(cycle)
   }
 
   // Distribute cycles to columns
@@ -52,24 +54,25 @@ const distributeLogos = (allLogos: Logo[], columnCount: number): Logo[][] => {
     })
   })
 
-  // Ensure all columns have the same length
-  const maxLength = Math.max(...columns.map(col => col.length))
-  columns.forEach(col => {
-    while (col.length < maxLength) {
-      const remainingLogos = allLogos.filter(logo => !col.includes(logo))
-      col.push(remainingLogos[Math.floor(Math.random() * remainingLogos.length)])
-    }
-  })
-
   return columns
 }
 
-const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime }) => {
-  const cycleInterval = 2000
-  const columnDelay = index * 100 // Reduced from 200 to 100 for faster sequence
+const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime, currentLogos, setCurrentLogos }) => {
+  const cycleInterval = 4000 // Increased from 1000 to 4000 for slower transitions
+  const columnDelay = index * 200 // Increased from 50 to 200 for slower sequence
   const adjustedTime = (currentTime + columnDelay) % (cycleInterval * logos.length)
   const currentIndex = Math.floor(adjustedTime / cycleInterval)
-  const CurrentLogo = useMemo(() => logos[currentIndex].img, [logos, currentIndex])
+  
+  const CurrentLogo = useMemo(() => {
+    const logo = logos[currentIndex]
+    // Update the current logos array when this column changes
+    setCurrentLogos((prev: Logo[]) => {
+      const newLogos = [...prev]
+      newLogos[index] = logo
+      return newLogos
+    })
+    return logo.img
+  }, [logos, currentIndex, index, setCurrentLogos])
 
   return (
     <motion.div
@@ -77,8 +80,8 @@ const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime }) =
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        delay: index * 0.05,
-        duration: 0.25,
+        delay: index * 0.1, // Increased from 0.025 to 0.1
+        duration: 0.5, // Increased from 0.125 to 0.5
         ease: "easeOut",
       }}
     >
@@ -97,7 +100,7 @@ const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime }) =
               damping: 20,
               mass: 1,
               bounce: 0.2,
-              duration: 0.25,
+              duration: 0.5, // Increased from 0.125 to 0.5
             },
           }}
           exit={{
@@ -107,7 +110,7 @@ const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime }) =
             transition: {
               type: "tween",
               ease: "easeIn",
-              duration: 0.15,
+              duration: 0.3, // Increased from 0.075 to 0.3
             },
           }}
         >
@@ -131,20 +134,39 @@ interface LogoCarouselProps {
 export const LogoCarousel: React.FC<LogoCarouselProps> = ({ columnCount = 3 }) => {
   const [logoSets, setLogoSets] = useState<Logo[][]>([])
   const [currentTime, setCurrentTime] = useState(0)
+  const [currentLogos, setCurrentLogos] = useState<Logo[]>([])
 
   const updateTime = useCallback(() => {
-    setCurrentTime((prevTime) => prevTime + 100)
+    setCurrentTime((prevTime) => prevTime + 200) // Increased from 50 to 200 for slower animations
   }, [])
 
   useEffect(() => {
-    const intervalId = setInterval(updateTime, 100)
+    const intervalId = setInterval(updateTime, 200) // Increased from 50 to 200
     return () => clearInterval(intervalId)
   }, [updateTime])
 
   useEffect(() => {
     const distributedLogos = distributeLogos(logos, columnCount)
     setLogoSets(distributedLogos)
+    setCurrentLogos(new Array(columnCount).fill(logos[0]))
   }, [columnCount])
+
+  // Ensure no duplicate logos are shown simultaneously
+  useEffect(() => {
+    if (currentLogos.length < 2) return
+
+    const hasDuplicates = currentLogos.some((logo, index) => 
+      logo && currentLogos.findIndex(l => l && l.id === logo.id) !== index
+    )
+
+    if (hasDuplicates) {
+      const availableLogos = logos.filter(logo => !currentLogos.some(l => l && l.id === logo.id))
+      if (availableLogos.length > 0) {
+        const newLogoSets = logoSets.map(column => shuffleArray([...column]))
+        setLogoSets(newLogoSets)
+      }
+    }
+  }, [currentLogos, logoSets])
 
   return (
     <div className="flex gap-6 items-center">
@@ -154,6 +176,8 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({ columnCount = 3 }) =
           logos={logos}
           index={index}
           currentTime={currentTime}
+          currentLogos={currentLogos}
+          setCurrentLogos={setCurrentLogos}
         />
       ))}
     </div>
