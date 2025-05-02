@@ -222,3 +222,53 @@ h1, h2, h3, h4, h5, h6 {
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
+
+/* Aggressive Spline watermark removal */
+body a.spline-watermark[href*="spline.design"],
+body a.spline-watermark[href*="spline.design"] span,
+body a.spline-watermark[href*="spline.design"] svg,
+iframe[src*="spline.design"] a.spline-watermark[href*="spline.design"],
+iframe[src*="spline.design"] a.spline-watermark[href*="spline.design"] span,
+iframe[src*="spline.design"] a.spline-watermark[href*="spline.design"] svg {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  z-index: -9999 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(100%) !important;
+}
+
+/* Additional iframe protection */
+iframe[src*="spline.design"] {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+iframe[src*="spline.design"]::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--background);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Prevent any interaction with watermark */
+iframe[src*="spline.design"] a[href*="spline.design"] {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}

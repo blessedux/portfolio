@@ -9,6 +9,7 @@ import NoiseOverlay from './NoiseOverlay';
 import TextFadeIn from './TextFadeIn';
 import Gallery from './Gallery';
 import AnimatedSkillBar from './AnimatedSkillBar';
+import { LogoCarousel } from "./LogoCarousel"
 
 const LandingPage: React.FC = () => {
   const [hoveredText, setHoveredText] = useState<number | null>(null);
@@ -78,36 +79,43 @@ const LandingPage: React.FC = () => {
             className="backdrop-blur-md bg-white/10 dark:bg-black/10 rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-xl relative z-10"
           >
             <div className="relative z-10">
-              <h2 className="text-6xl font-display-bold mb-8 text-white tracking-tight">Bio</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  {bioTexts.map((item, index) => (
-                    <div
-                      key={index}
-                      onMouseEnter={() => setHoveredText(index)}
-                      onMouseLeave={() => setHoveredText(null)}
-                      className="cursor-default"
-                    >
-                      <TextFadeIn 
-                        text={item.text}
-                        className="text-lg text-white/90"
-                        animate={inView && (hoveredText === null || hoveredText === index)}
-                        keywords={item.keywords}
-                        isHovered={hoveredText === index}
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div className="space-y-8">
-                  <h3 className="text-4xl font-display-bold text-white tracking-tight">Skills</h3>
+              <div className="flex justify-between items-start">
+                <div className="w-2/3">
+                  <h2 className="text-6xl font-display-bold mb-8 text-white tracking-tight">Bio</h2>
                   <div className="space-y-4">
-                    {skills.map((item, index) => (
-                      <AnimatedSkillBar
+                    {bioTexts.map((item, index) => (
+                      <div
                         key={index}
-                        skill={item.skill}
-                        level={item.level}
-                      />
+                        onMouseEnter={() => setHoveredText(index)}
+                        onMouseLeave={() => setHoveredText(null)}
+                        className="cursor-default"
+                      >
+                        <TextFadeIn
+                          text={item.text}
+                          className="text-lg text-white/90"
+                          animate={inView && (hoveredText === null || hoveredText === index)}
+                          keywords={item.keywords}
+                          isHovered={hoveredText === index}
+                        />
+                      </div>
                     ))}
+                  </div>
+                </div>
+                <div className="w-1/3">
+                  <div className="flex justify-center mb-8">
+                    <LogoCarousel columnCount={3} />
+                  </div>
+                  <div className="space-y-8">
+                    <h3 className="text-4xl font-display-bold text-white tracking-tight">Skills</h3>
+                    <div className="space-y-4">
+                      {skills.map((item, index) => (
+                        <AnimatedSkillBar
+                          key={index}
+                          skill={item.skill}
+                          level={item.level}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -125,29 +133,29 @@ const LandingPage: React.FC = () => {
           <h2 className="text-6xl font-display-bold mb-12 text-white text-center tracking-tight">Currently working on</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Project Card 1 */}
-            <div className="backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl p-6 border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300">
-              <h3 className="text-3xl font-display-bold text-white mb-4 tracking-tight">Project 1</h3>
-              <TextFadeIn 
-                text="Description of your first current project goes here."
-                className="text-white/80"
+            <div className="relative backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300 group">
+              <img 
+                src="/blessedlogos/sozucash_card.png" 
+                alt="Sozu Cash Card" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
               />
             </div>
 
             {/* Project Card 2 */}
-            <div className="backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl p-6 border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300">
-              <h3 className="text-3xl font-display-bold text-white mb-4 tracking-tight">Project 2</h3>
-              <TextFadeIn 
-                text="Description of your second current project goes here."
-                className="text-white/80"
+            <div className="relative backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300 group">
+              <img 
+                src="/blessedlogos/sozucash_card.png" 
+                alt="Sozu Cash Card" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
               />
             </div>
 
             {/* Project Card 3 */}
-            <div className="backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl p-6 border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300">
-              <h3 className="text-3xl font-display-bold text-white mb-4 tracking-tight">Project 3</h3>
-              <TextFadeIn 
-                text="Description of your third current project goes here."
-                className="text-white/80"
+            <div className="relative backdrop-blur-md bg-white/5 dark:bg-black/5 rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 shadow-xl aspect-square hover:bg-white/10 transition-all duration-300 group">
+              <img 
+                src="/blessedlogos/sozucash_card.png" 
+                alt="Sozu Cash Card" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-105 group-hover:scale-110"
               />
             </div>
           </div>
