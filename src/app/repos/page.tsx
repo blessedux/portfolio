@@ -13,7 +13,7 @@ export default function ReposPage() {
 
     // Add fadeout effect and redirect to the built Codeology app
     const fadeoutTimer = setTimeout(() => {
-      const preloaderElement = document.querySelector('.preloader-container');
+      const preloaderElement = document.querySelector('.preloader-container') as HTMLElement;
       if (preloaderElement) {
         preloaderElement.style.transition = 'opacity 0.5s ease-out';
         preloaderElement.style.opacity = '0';
