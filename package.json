@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run build:repos && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:repos": "cd repos && npm install && npm run build && cd .. && mkdir -p public/codeology/dist && cp -r repos/dist/* public/codeology/dist/ && cp repos/index.html public/codeology/ && sed -i '' 's|/dist/|/api/codeology/dist/|g' public/codeology/index.html",
+    "dev:repos": "cd repos && npm run dev",
+    "update:repos": "git submodule update --remote repos && npm run build:repos"
   },
   "dependencies": {
     "@react-spring/web": "^9.7.5",

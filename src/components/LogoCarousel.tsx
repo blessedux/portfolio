@@ -19,7 +19,6 @@ interface LogoColumnProps {
   logos: Logo[]
   index: number
   currentTime: number
-  currentLogos: Logo[]
   setCurrentLogos: React.Dispatch<React.SetStateAction<Logo[]>>
 }
 
@@ -57,7 +56,7 @@ const distributeLogos = (allLogos: Logo[], columnCount: number): Logo[][] => {
   return columns
 }
 
-const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime, currentLogos, setCurrentLogos }) => {
+const LogoColumn = React.memo<LogoColumnProps>(({ logos, index, currentTime, setCurrentLogos }) => {
   const cycleInterval = 2000 // Halved from 4000 to 2000 for faster transitions
   const columnDelay = index * 100 // Halved from 200 to 100 for faster sequence
   const adjustedTime = (currentTime + columnDelay) % (cycleInterval * logos.length)
@@ -187,7 +186,6 @@ export const LogoCarousel: React.FC<LogoCarouselProps> = ({ columnCount = 3 }) =
           logos={logos}
           index={index}
           currentTime={currentTime}
-          currentLogos={currentLogos}
           setCurrentLogos={setCurrentLogos}
         />
       ))}

@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
-import PaperPlane from './PaperPlane';
 
 const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,8 +30,15 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Left side - empty for now */}
-          <div className="w-1/3" />
+          {/* Left side - Navigation links */}
+          <div className="w-1/3 flex justify-start">
+            <Link 
+              href="/repos" 
+              className="text-white hover:text-white/80 transition-colors duration-300 font-medium"
+            >
+              Repos
+            </Link>
+          </div>
           
           {/* Center - Paper Plane animation */}
           <div className="w-1/3 flex justify-center">
@@ -41,7 +48,6 @@ const Navbar: React.FC = () => {
               rel="noopener noreferrer"
               className="flex items-center justify-center"
             >
-              <PaperPlane isVisible={isVisible} />
             </a>
           </div>
           

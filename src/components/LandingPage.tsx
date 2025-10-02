@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useSpring, animated } from '@react-spring/web';
 import { useInView } from 'react-intersection-observer';
@@ -8,16 +8,46 @@ import AnimatedBackground from './AnimatedBackground';
 import Navbar from './Navbar';
 import NoiseOverlay from './NoiseOverlay';
 import TextFadeIn from './TextFadeIn';
-import Gallery from './Gallery';
 import AnimatedSkillBar from './AnimatedSkillBar';
 import { LogoCarousel } from "./LogoCarousel"
 
 const LandingPage: React.FC = () => {
   const [hoveredText, setHoveredText] = useState<number | null>(null);
+  const [preloaderStep, setPreloaderStep] = useState(0);
+  const [showPreloader, setShowPreloader] = useState(true);
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: false,
   });
+
+  useEffect(() => {
+    // Animate the preloader
+    const interval = setInterval(() => {
+      setPreloaderStep(prev => (prev + 1) % 12);
+    }, 80);
+
+    // Hide preloader after a delay
+    const hideTimer = setTimeout(() => {
+      setShowPreloader(false);
+    }, 1500);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
+  const renderSlashes = () => {
+    let slashes = "";
+    for (let i = 0; i < 6; i++) {
+      if (i > preloaderStep && i < preloaderStep + 6) {
+        slashes += "&nbsp;";
+      } else {
+        slashes += "/";
+      }
+    }
+    return slashes;
+  };
 
   const bioCardSpring = useSpring({
     from: { opacity: 0, transform: 'translateY(40px)' },
@@ -63,6 +93,43 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="relative w-full">
+      {/* Preloader */}
+      {showPreloader && (
+        <div 
+          className="preloader-container"
+          style={{ 
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: '#000',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontFamily: '"BTMono", "Courier New", Courier, monospace',
+            color: '#fff',
+            fontSize: '16px',
+            zIndex: 9999,
+            transition: 'opacity 0.5s ease-out'
+          }}>
+          <div 
+            className="loader"
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              marginLeft: '-18px',
+              marginTop: '-5px',
+              width: '36px',
+              height: '10px',
+              textAlign: 'left'
+            }}
+            dangerouslySetInnerHTML={{ __html: renderSlashes() }}
+          />
+        </div>
+      )}
+      
       <Navbar />
       <NoiseOverlay />
       
@@ -125,8 +192,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <Gallery />
 
       {/* Currently Working On Section */}
       <section className="relative w-full min-h-screen py-20" style={{ zIndex: 2 }}>
