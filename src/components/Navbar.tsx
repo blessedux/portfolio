@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
               <FaXTwitter size={22} />
             </a>
             <a 
-              href="https://linkedin.com/in/joaquin-farfan-torres" 
+              href="https://linkedin.com/in/joaquinfarfan" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-white hover:text-white/80 transition-colors duration-300"

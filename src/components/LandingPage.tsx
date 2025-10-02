@@ -167,12 +167,16 @@ const LandingPage: React.FC = () => {
                         key={index}
                         onMouseEnter={() => setHoveredText(index)}
                         onMouseLeave={() => setHoveredText(null)}
-                        className="cursor-default"
+                        className="cursor-pointer transition-all duration-500 ease-out"
+                        style={{
+                          opacity: hoveredText === null ? 1 : (hoveredText === index ? 1 : 0.2),
+                          filter: hoveredText === null ? 'blur(0px)' : (hoveredText === index ? 'blur(0px)' : 'blur(1px)'),
+                        }}
                       >
                         <TextFadeIn
                           text={item.text}
                           className="text-lg text-white/90"
-                          animate={inView && (hoveredText === null || hoveredText === index)}
+                          animate={inView}
                           keywords={item.keywords}
                           isHovered={hoveredText === index}
                         />
