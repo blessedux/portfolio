@@ -124,7 +124,10 @@ const AnimatedBackground: React.FC = () => {
           left: 0,
           pointerEvents: 'auto',
           zIndex: 1,
-          background: 'transparent'
+          background: 'transparent',
+          transform: 'scale(1.2)',
+          transformOrigin: 'center center',
+          overflow: 'hidden'
         }}
         allow="autoplay; fullscreen; pointer-lock"
       />

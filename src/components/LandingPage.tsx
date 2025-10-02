@@ -15,6 +15,7 @@ const LandingPage: React.FC = () => {
   const [hoveredText, setHoveredText] = useState<number | null>(null);
   const [preloaderStep, setPreloaderStep] = useState(0);
   const [showPreloader, setShowPreloader] = useState(true);
+  const [preloaderFading, setPreloaderFading] = useState(false);
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: false,
@@ -26,13 +27,19 @@ const LandingPage: React.FC = () => {
       setPreloaderStep(prev => (prev + 1) % 12);
     }, 80);
 
-    // Hide preloader after a delay
+    // Start fadeout after 1.2 seconds
+    const fadeTimer = setTimeout(() => {
+      setPreloaderFading(true);
+    }, 1200);
+
+    // Hide preloader after fadeout completes
     const hideTimer = setTimeout(() => {
       setShowPreloader(false);
-    }, 1500);
+    }, 1800); // 1.2s + 0.6s fadeout
 
     return () => {
       clearInterval(interval);
+      clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
     };
   }, []);
@@ -111,7 +118,9 @@ const LandingPage: React.FC = () => {
             color: '#fff',
             fontSize: '16px',
             zIndex: 9999,
-            transition: 'opacity 0.5s ease-out'
+            opacity: preloaderFading ? 0 : 1,
+            transition: 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+            pointerEvents: preloaderFading ? 'none' : 'auto'
           }}>
           <div 
             className="loader"
@@ -123,7 +132,9 @@ const LandingPage: React.FC = () => {
               marginTop: '-5px',
               width: '36px',
               height: '10px',
-              textAlign: 'left'
+              textAlign: 'left',
+              transform: preloaderFading ? 'scale(0.95)' : 'scale(1)',
+              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
             dangerouslySetInnerHTML={{ __html: renderSlashes() }}
           />
