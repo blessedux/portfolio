@@ -71,8 +71,8 @@ const LandingPage: React.FC = () => {
 
   const bioTexts = [
     {
-      text: "Hey! I'm Joaquín — a UX designer and frontend developer obsessed with clarity, flow, and making complex things feel simple.",
-      keywords: ["UX designer", "frontend developer", "clarity", "flow", "simple"]
+      text: "Hey! I'm Joaquín: a frontend developer obsessed with clarity, flow, and making complex things feel simple.",
+      keywords: ["frontend developer", "clarity", "flow", "simple"]
     },
     {
       text: "I've built award-winning Web3 products at hackathons around the world and contributed to open-source design through the Bitcoin Design Foundation.",
@@ -83,7 +83,7 @@ const LandingPage: React.FC = () => {
       keywords: ["clean interfaces", "thoughtful interactions", "powerful stories", "design"]
     },
     {
-      text: "I'm deeply committed to decentralization and building the internet of the future—open, permissionless, and made for people, not platforms.",
+      text: "I'm deeply committed to decentralization and building the internet of the future. Open, permissionless, and made for people, not platforms.",
       keywords: ["decentralization", "internet of the future", "permissionless", "people", "platforms"]
     }
   ];

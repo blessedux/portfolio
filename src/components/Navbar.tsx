@@ -11,9 +11,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollThreshold = documentHeight - windowHeight * 1.5; // Show navbar when we're 1.5 viewport heights from the bottom
+      const scrollThreshold = 50; // Show navbar after scrolling 50px from the top
       
       setIsVisible(scrollPosition > scrollThreshold);
     };
@@ -24,9 +22,18 @@ const Navbar: React.FC = () => {
 
   return (
     <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-opacity duration-500 ${
-        isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 -translate-y-2 pointer-events-none'
       }`}
+      style={{
+        background: isVisible 
+          ? 'rgba(0, 0, 0, 0.8)' 
+          : 'rgba(0, 0, 0, 0)',
+        backdropFilter: isVisible ? 'blur(10px)' : 'blur(0px)',
+        borderBottom: isVisible ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(255, 255, 255, 0)',
+      }}
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
