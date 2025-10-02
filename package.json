@@ -7,7 +7,7 @@
     "build": "npm run build:repos && next build",
     "start": "next start",
     "lint": "next lint",
-    "build:repos": "cd repos && npm install && npm run build && cd .. && mkdir -p public/codeology/dist && cp -r repos/dist/* public/codeology/dist/ && cp repos/index.html public/codeology/ && sed -i '' 's|/dist/|/api/codeology/dist/|g' public/codeology/index.html",
+    "build:repos": "cd repos && npm install && npm run build && cd .. && mkdir -p public/codeology/dist && cp -r repos/dist/* public/codeology/dist/ && cp repos/index.html public/codeology/ && node -e \"const fs=require('fs'); const content=fs.readFileSync('public/codeology/index.html','utf8'); fs.writeFileSync('public/codeology/index.html', content.replace(/\\/dist\\//g, '/api/codeology/dist/'));\"",
     "dev:repos": "cd repos && npm run dev",
     "update:repos": "git submodule update --remote repos && npm run build:repos"
   },
