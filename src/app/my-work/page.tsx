@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export default function ReposPage() {
+export default function MyWorkPage() {
   const [preloaderStep, setPreloaderStep] = useState(0);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function ReposPage() {
 
     const redirectTimer = setTimeout(() => {
       if (typeof window !== 'undefined') {
-        window.location.href = '/codeology/index.html';
+        window.location.href = '/my-work/codeology/index.html';
       }
     }, 1300);
 
@@ -32,7 +32,7 @@ export default function ReposPage() {
       clearTimeout(redirectTimer);
     };
   }, []);
-  
+
   const renderSlashes = () => {
     let slashes = "";
     for (let i = 0; i < 6; i++) {
@@ -44,11 +44,11 @@ export default function ReposPage() {
     }
     return slashes;
   };
-  
+
   return (
-    <div 
+    <div
       className="preloader-container"
-      style={{ 
+      style={{
         position: 'fixed',
         top: 0,
         left: 0,
@@ -62,15 +62,15 @@ export default function ReposPage() {
         color: '#fff',
         fontSize: '16px'
       }}>
-      <div 
+      <div
         className="loader"
         style={{
           position: 'absolute',
           left: '50%',
           top: '50%',
-          marginLeft: '-15px',
+          marginLeft: '-18px',
           marginTop: '-5px',
-          width: '30px',
+          width: '36px',
           height: '10px',
           textAlign: 'left'
         }}

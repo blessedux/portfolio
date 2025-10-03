@@ -40,10 +40,10 @@ const Navbar: React.FC = () => {
           {/* Left side - Navigation links */}
           <div className="w-1/3 flex justify-start">
             <Link 
-              href="/repos" 
+              href="/my-work" 
               className="text-white hover:text-white/80 transition-colors duration-300 font-medium"
             >
-              Repos
+              My Work
             </Link>
           </div>
           
