@@ -7,7 +7,7 @@
     "build": "npm run build:repos && next build",
     "start": "next start",
     "lint": "next lint",
-    "build:repos": "cd repos && npm install && npm run build && cd .. && mkdir -p public/my-work/codeology/dist && cp -r repos/dist/* public/my-work/codeology/dist/ && cp repos/index.html public/my-work/codeology/",
+    "build:repos": "cd repos && npm install && npm run build && cd .. && mkdir -p public/my-work/codeology/dist && cp -r repos/dist/* public/my-work/codeology/dist/ && cp repos/index.html public/my-work/codeology/ && node -e \"const fs=require('fs'); const content=fs.readFileSync('public/my-work/codeology/index.html','utf8'); fs.writeFileSync('public/my-work/codeology/index.html', content.replace(/\\/dist\\//g, '/my-work/codeology/dist/'));\"",
     "dev:repos": "cd repos && npm run dev",
     "update:repos": "git submodule update --remote repos && npm run build:repos"
   },
