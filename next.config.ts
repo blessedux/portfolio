@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/repos/:path*',
+        source: '/my-work/codeology/:path*',
         headers: [
           {
             key: 'Cache-Control',

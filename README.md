@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#About Me
 
-## Getting Started
+Hey, I’m **Joaquín Farfán**, also known as **BlessedUX**.
 
-First, run the development server:
+I build **tools and experiences** that empower people to create, connect, and own what they build.  
+I believe in **clarity, craftsmanship, and conviction** — that great design isn’t about trends, it’s abou **intuitive** relationships to the digital clones of our RWAs.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🌍 What I Do
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+I live at the intersection of **design, code, and money**.  
+I create digital systems that feel **alive** — from decentralized finance protocols to AI companions and immersive experiences.  
+Each project I touch shares the same DNA:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Meaningful utility.** It has to solve a real problem.
+- **Aesthetic precision.** Beauty is not decoration — it’s discipline.
+- **Human depth.** Technology should make us _more human_, not less.
 
-## Learn More
+I’ve led teams, launched products, organized communities, and built from zero more times than I can count.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚡ Core Values
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Autonomy** — I create to stay free. I don’t wait for permission.  
+**Mastery** — I’m obsessed with refining my craft, not chasing hype.  
+**Integrity** — What I build has to _work_, _matter_, and _last_.  
+**Vision** — I care more about the next decade than the next trend.  
+**Humanity** — I don’t believe in tech for tech’s sake. I believe in people.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## My Philosophy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> “Design is not how it looks — it’s how it _feels to live inside it_.”
+
+I’m building bridges between **AI, blockchain, and human experience**.  
+My work is a continuous experiment in aligning code with consciousness —  
+turning abstract systems into tangible realities that people can trust, touch, and love.
+
+---
+
+**— BlessedUX**
